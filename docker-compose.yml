@@ -1,7 +1,9 @@
 services:
-  app:
+  web:
     build: .
     ports:
       - "5000:5000"
-    volumes:
-      - ./app:/app
+    env_file:
+      - .env
+    environment:
+      MYSQL_HOST: host.docker.internal
