@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}{{ "Editar" if cliente else "Novo" }} cliente{% endblock %}
+
+{% block content %}
+{{ m.cabecalho(("Editar" if cliente else "Novo") ~ " cliente") }}
+
+<form method="post" class="formulario">
+  {{ m.campo("nome", "Nome", cliente.nome if cliente) }}
+  {{ m.campo("telefone", "Telefone", cliente.telefone if cliente, "tel", attrs='placeholder="(00) 00000-0000"') }}
+  {{ m.campo("email", "E-mail", cliente.email if cliente, "email", false) }}
+  {{ m.botoes("/clientes") }}
+</form>
+{% endblock %}

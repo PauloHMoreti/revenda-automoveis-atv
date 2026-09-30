@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}{{ "Editar" if mecanico else "Novo" }} mecânico{% endblock %}
+
+{% block content %}
+{{ m.cabecalho(("Editar" if mecanico else "Novo") ~ " mecânico") }}
+
+<form method="post" class="formulario">
+  {{ m.campo("nome", "Nome", mecanico.nome if mecanico) }}
+  {{ m.campo("especialidade", "Especialidade", mecanico.especialidade if mecanico, attrs='placeholder="Ex.: Motor, Suspensão, Elétrica"') }}
+  {{ m.botoes("/mecanicos") }}
+</form>
+{% endblock %}

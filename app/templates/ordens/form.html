@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}Nova ordem de serviço{% endblock %}
+
+{% block content %}
+{{ m.cabecalho("Nova ordem de serviço") }}
+
+<form method="post" class="formulario">
+  <label class="campo">
+    <span>Cliente</span>
+    <select name="cliente_id" required>
+      <option value="">Selecione o cliente</option>
+      {% for cliente in clientes %}
+      <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  <label class="campo">
+    <span>Veículo</span>
+    <select name="veiculo_id" required>
+      <option value="">Selecione o veículo</option>
+      {% for veiculo in veiculos %}
+      <option value="{{ veiculo.id }}">{{ veiculo.marca }} {{ veiculo.modelo }} ({{ veiculo.ano }}) · {{ veiculo.placa }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  <label class="campo">
+    <span>Mecânico responsável</span>
+    <select name="mecanico_id" required>
+      <option value="">Selecione o mecânico</option>
+      {% for mecanico in mecanicos %}
+      <option value="{{ mecanico.id }}">{{ mecanico.nome }} · {{ mecanico.especialidade }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  {{ m.campo("data_abertura", "Data de abertura", hoje, "date") }}
+
+  {% if servicos %}
+  <fieldset class="campo">
+    <legend>Serviços</legend>
+    <div class="lista-servicos">
+      {% for servico in servicos %}
+      <label class="opcao">
+        <input type="checkbox" name="servicos" value="{{ servico.id }}" />
+        <span>{{ servico.descricao }}</span>
+        <small>{{ m.moeda(servico.valor) }}</small>
+      </label>
+      {% endfor %}
+    </div>
+  </fieldset>
+  {% endif %}
+
+  <label class="campo">
+    <span>Observações</span>
+    <textarea name="observacoes" rows="4" placeholder="Descreva o problema relatado pelo cliente"></textarea>
+  </label>
+
+  {{ m.botoes("/ordens") }}
+</form>
+{% endblock %}

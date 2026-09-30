@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Início{% endblock %} · Oficina Mecânica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">Oficina<span>Revenda</span></a>
+      <nav>
+        {% set secao = request.path.split('/')[1] %}
+        <a href="/ordens" class="{{ 'ativo' if secao == 'ordens' }}">Ordens de Serviço</a>
+        <a href="/clientes" class="{{ 'ativo' if secao == 'clientes' }}">Clientes</a>
+        <a href="/veiculos" class="{{ 'ativo' if secao == 'veiculos' }}">Veículos</a>
+        <a href="/mecanicos" class="{{ 'ativo' if secao == 'mecanicos' }}">Mecânicos</a>
+        <a href="/servicos" class="{{ 'ativo' if secao == 'servicos' }}">Serviços</a>
+        <a href="/relatorios/mecanicos" class="{{ 'ativo' if secao == 'relatorios' }}">Relatório</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% for categoria, mensagem in mensagens %}
+        <div class="alerta alerta-{{ categoria if categoria != 'message' else 'sucesso' }}">{{ mensagem }}</div>
+        {% endfor %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="rodape">Sistema de Controle de Oficina Mecânica · Revenda de Automóveis</footer>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}Serviços{% endblock %}
+
+{% block content %}
+{{ m.cabecalho("Serviços", "/servicos/novo", "Novo serviço") }}
+
+<div class="tabela-wrapper">
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Descrição</th><th class="num">Valor</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for servico in servicos %}
+      <tr>
+        <td>{{ servico.id }}</td>
+        <td>{{ servico.descricao }}</td>
+        <td class="num">{{ m.moeda(servico.valor) }}</td>
+        {{ m.acoes("/servicos", servico.id) }}
+      </tr>
+      {% else %}
+      {{ m.vazio(4, "Nenhum serviço cadastrado.") }}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

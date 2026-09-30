@@ -1,13 +1,40 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Flask + MySQL</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
-  </head>
-  <body>
-    <h1>{{ msg }}</h1>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <h1>Oficina Mecânica</h1>
+  <p>Controle de atendimentos da oficina integrada à revenda de automóveis.</p>
+  {% if msg %}<p class="status-banco">Banco de dados: {{ msg }}</p>{% endif %}
+</section>
+
+<section class="cards">
+  <a class="card destaque" href="/ordens/nova">
+    <h2>Nova Ordem de Serviço</h2>
+    <p>Abrir um atendimento para um cliente e veículo.</p>
+  </a>
+  <a class="card" href="/ordens">
+    <h2>Ordens de Serviço</h2>
+    <p>Consultar as ordens cadastradas.</p>
+  </a>
+  <a class="card" href="/relatorios/mecanicos">
+    <h2>Relatório Gerencial</h2>
+    <p>Mecânicos que mais realizaram serviços.</p>
+  </a>
+  <a class="card" href="/clientes">
+    <h2>Clientes</h2>
+    <p>Cadastro de clientes.</p>
+  </a>
+  <a class="card" href="/veiculos">
+    <h2>Veículos</h2>
+    <p>Cadastro de veículos.</p>
+  </a>
+  <a class="card" href="/mecanicos">
+    <h2>Mecânicos</h2>
+    <p>Cadastro de mecânicos e especialidades.</p>
+  </a>
+  <a class="card" href="/servicos">
+    <h2>Serviços</h2>
+    <p>Tabela de serviços e valores.</p>
+  </a>
+</section>
+{% endblock %}

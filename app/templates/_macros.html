@@ -1,0 +1,50 @@
+{# Cabeçalho de página com título e botão de ação opcional #}
+{% macro cabecalho(titulo, link=None, texto_link=None) %}
+<div class="cabecalho">
+  <h1>{{ titulo }}</h1>
+  {% if link %}<a class="botao" href="{{ link }}">{{ texto_link }}</a>{% endif %}
+</div>
+{% endmacro %}
+
+{# Botões Editar / Excluir de uma linha de tabela #}
+{% macro acoes(base, id) %}
+<td class="acoes">
+  <a class="botao botao-secundario" href="{{ base }}/{{ id }}/editar">Editar</a>
+  <form method="post" action="{{ base }}/{{ id }}/excluir"
+        onsubmit="return confirm('Confirma a exclusão deste registro?');">
+    <button type="submit" class="botao botao-perigo">Excluir</button>
+  </form>
+</td>
+{% endmacro %}
+
+{# Linha vazia quando a listagem não tem registros #}
+{% macro vazio(colunas, texto) %}
+<tr><td colspan="{{ colunas }}" class="vazio">{{ texto }}</td></tr>
+{% endmacro %}
+
+{# Campo de formulário com rótulo #}
+{% macro campo(nome, rotulo, valor='', tipo='text', required=true, attrs='') %}
+<label class="campo">
+  <span>{{ rotulo }}</span>
+  <input type="{{ tipo }}" name="{{ nome }}" value="{{ valor if valor is not none }}"
+         {{ 'required' if required }} {{ attrs|safe }} />
+</label>
+{% endmacro %}
+
+{# Botões Salvar / Cancelar do rodapé do formulário #}
+{% macro botoes(voltar) %}
+<div class="form-botoes">
+  <button type="submit" class="botao">Salvar</button>
+  <a class="botao botao-secundario" href="{{ voltar }}">Cancelar</a>
+</div>
+{% endmacro %}
+
+{# Formata número como moeda brasileira: 1234.5 -> R$ 1.234,50 #}
+{% macro moeda(valor) -%}
+R$ {{ "{:,.2f}".format(valor or 0).replace(",", "X").replace(".", ",").replace("X", ".") }}
+{%- endmacro %}
+
+{# Formata date/datetime como dd/mm/aaaa #}
+{% macro data(valor) -%}
+{{ valor.strftime('%d/%m/%Y') if valor else '—' }}
+{%- endmacro %}
