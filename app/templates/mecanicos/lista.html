@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}Mecânicos{% endblock %}
+
+{% block content %}
+{{ m.cabecalho("Mecânicos", "/mecanicos/novo", "Novo mecânico") }}
+
+<div class="tabela-wrapper">
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Nome</th><th>Especialidade</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for mecanico in mecanicos %}
+      <tr>
+        <td>{{ mecanico.id }}</td>
+        <td>{{ mecanico.nome }}</td>
+        <td>{{ mecanico.especialidade }}</td>
+        {{ m.acoes("/mecanicos", mecanico.id) }}
+      </tr>
+      {% else %}
+      {{ m.vazio(4, "Nenhum mecânico cadastrado.") }}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}{{ "Editar" if veiculo else "Novo" }} veículo{% endblock %}
+
+{% block content %}
+{{ m.cabecalho(("Editar" if veiculo else "Novo") ~ " veículo") }}
+
+<form method="post" class="formulario">
+  {{ m.campo("placa", "Placa", veiculo.placa if veiculo, attrs='maxlength="8" placeholder="ABC1D23"') }}
+  {{ m.campo("marca", "Marca", veiculo.marca if veiculo) }}
+  {{ m.campo("modelo", "Modelo", veiculo.modelo if veiculo) }}
+  {{ m.campo("ano", "Ano", veiculo.ano if veiculo, "number", attrs='min="1900" max="2100"') }}
+  {{ m.botoes("/veiculos") }}
+</form>
+{% endblock %}

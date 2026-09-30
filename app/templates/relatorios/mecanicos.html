@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}Relatório gerencial{% endblock %}
+
+{% block content %}
+{{ m.cabecalho("Mecânicos que mais realizaram serviços") }}
+
+{% set maior = (ranking | map(attribute="total") | max) if ranking else 0 %}
+
+<div class="tabela-wrapper">
+  <table>
+    <thead>
+      <tr><th>#</th><th>Mecânico</th><th>Especialidade</th><th class="num">Total de serviços</th><th class="barra-col"></th></tr>
+    </thead>
+    <tbody>
+      {% for linha in ranking %}
+      <tr>
+        <td>{{ loop.index }}º</td>
+        <td>{{ linha.nome }}</td>
+        <td>{{ linha.especialidade }}</td>
+        <td class="num"><strong>{{ linha.total }}</strong></td>
+        <td class="barra-col">
+          <div class="barra"><div style="width: {{ (linha.total / maior * 100) if maior else 0 }}%"></div></div>
+        </td>
+      </tr>
+      {% else %}
+      {{ m.vazio(5, "Nenhum serviço registrado ainda.") }}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

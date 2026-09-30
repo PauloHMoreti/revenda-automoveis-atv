@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}{{ "Editar" if servico else "Novo" }} serviço{% endblock %}
+
+{% block content %}
+{{ m.cabecalho(("Editar" if servico else "Novo") ~ " serviço") }}
+
+<form method="post" class="formulario">
+  {{ m.campo("descricao", "Descrição", servico.descricao if servico) }}
+  {{ m.campo("valor", "Valor (R$)", servico.valor if servico, "number", attrs='min="0" step="0.01"') }}
+  {{ m.botoes("/servicos") }}
+</form>
+{% endblock %}
