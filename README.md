@@ -1,19 +1,48 @@
-# Revenda de Automóveis
+# Oficina Mecânica · Revenda de Automóveis
 
-Aplicação web em Flask com banco MySQL, executados em containers Docker. O banco é criado automaticamente a partir do `banco.sql` na primeira vez que o projeto sobe.
+Sistema web para controle de atendimentos de uma oficina mecânica integrada a uma revenda de automóveis. Feito com Python, Flask e MySQL, com consultas SQL escritas à mão (sem ORM).
+
+A aplicação e o banco rodam em containers Docker. O banco é criado automaticamente a partir do `banco.sql` na primeira vez que o projeto sobe.
+
+## Funcionalidades
+
+| Tela | Rota | Descrição |
+| --- | --- | --- |
+| Início | `/` | Atalhos para todas as seções |
+| Clientes | `/clientes` | Cadastro, edição e exclusão |
+| Veículos | `/veiculos` | Cadastro, edição e exclusão |
+| Mecânicos | `/mecanicos` | Cadastro, edição e exclusão |
+| Serviços | `/servicos` | Cadastro, edição e exclusão |
+| Nova ordem de serviço | `/ordens/nova` | Cliente, veículo, mecânico, serviço, data de abertura e observações |
+| Ordens de serviço | `/ordens` | Consulta com `INNER JOIN` entre seis tabelas |
+| Relatório gerencial | `/relatorios/mecanicos` | Mecânicos que mais realizaram serviços (`GROUP BY` + `COUNT`) |
+
+Registros usados em alguma ordem de serviço não podem ser excluídos (integridade referencial), e a aplicação avisa quando isso acontece.
 
 ## Estrutura
+
+O projeto segue o padrão MVC:
 
 ```text
 .
 ├── app/
-│   ├── app.py
-│   ├── static/
-│   └── templates/
-├── banco.sql            # Criação do banco e das tabelas
+│   ├── app.py               # Cria o Flask e registra as rotas
+│   ├── db.py                # Conexão com o MySQL
+│   ├── models/              # Model: consultas SQL de cada tabela
+│   │   ├── cliente.py
+│   │   ├── veiculo.py
+│   │   ├── mecanico.py
+│   │   ├── servico.py
+│   │   ├── ordem_servico.py # INNER JOIN da consulta de ordens
+│   │   └── relatorio.py     # GROUP BY / COUNT do relatório
+│   ├── controllers/         # Controller: rotas (blueprints) de cada seção
+│   ├── services/            # Regras de negócio
+│   ├── templates/           # View: páginas HTML (Jinja2)
+│   └── static/              # CSS
+├── banco.sql                # Criação do banco e das tabelas
 ├── requirements.txt
 ├── Dockerfile
-├── docker-compose.yml   # Serviços: web (Flask) e db (MySQL 8.0)
+├── docker-compose.yml       # Serviços: web (Flask) e db (MySQL 8.0)
 ├── .env.example
 └── README.md
 ```
@@ -38,6 +67,7 @@ cp .env.example .env
 | `MYSQL_USER` | `root` | Usuário do MySQL |
 | `MYSQL_PASSWORD` | `sua_senha` | Senha do `root` do container MySQL |
 | `MYSQL_DATABASE` | `oficina` | Banco criado pelo `banco.sql` |
+| `SECRET_KEY` | `troque-esta-chave` | Chave do Flask para as mensagens de aviso |
 
 ## Executar com Docker Compose
 
