@@ -39,20 +39,15 @@
 
   {{ m.campo("data_abertura", "Data de abertura", hoje, "date") }}
 
-  {% if servicos %}
-  <fieldset class="campo">
-    <legend>Serviços</legend>
-    <div class="lista-servicos">
+  <label class="campo">
+    <span>Serviço</span>
+    <select name="servico_id" required>
+      <option value="">Selecione o serviço</option>
       {% for servico in servicos %}
-      <label class="opcao">
-        <input type="checkbox" name="servicos" value="{{ servico.id }}" />
-        <span>{{ servico.descricao }}</span>
-        <small>{{ m.moeda(servico.valor) }}</small>
-      </label>
+      <option value="{{ servico.id }}">{{ servico.descricao }} · {{ m.moeda(servico.valor) }}</option>
       {% endfor %}
-    </div>
-  </fieldset>
-  {% endif %}
+    </select>
+  </label>
 
   <label class="campo">
     <span>Observações</span>
