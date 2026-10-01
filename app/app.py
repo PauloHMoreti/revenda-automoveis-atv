@@ -1,5 +1,6 @@
 import os
 
+from dotenv import load_dotenv
 from flask import Flask, render_template
 
 from controllers.clientes import clientes_bp
@@ -9,6 +10,9 @@ from controllers.relatorios import relatorios_bp
 from controllers.servicos import servicos_bp
 from controllers.veiculos import veiculos_bp
 from db import consultar
+
+# Fora do Docker, lê as variáveis do arquivo .env (no Docker, o compose já as define)
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "dev")
