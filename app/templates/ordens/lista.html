@@ -9,7 +9,7 @@
 <div class="tabela-wrapper">
   <table>
     <thead>
-      <tr><th>OS</th><th>Cliente</th><th>Veículo</th><th>Mecânico</th><th>Data</th><th>Observações</th></tr>
+      <tr><th>OS</th><th>Cliente</th><th>Veículo</th><th>Mecânico</th><th>Serviço</th><th>Data</th><th>Observações</th></tr>
     </thead>
     <tbody>
       {% for ordem in ordens %}
@@ -18,11 +18,12 @@
         <td>{{ ordem.cliente }}</td>
         <td>{{ ordem.veiculo }} {% if ordem.placa %}<span class="placa">{{ ordem.placa }}</span>{% endif %}</td>
         <td>{{ ordem.mecanico }}</td>
+        <td>{{ ordem.servico }}</td>
         <td>{{ m.data(ordem.data_abertura) }}</td>
         <td class="observacoes">{{ ordem.observacoes or "—" }}</td>
       </tr>
       {% else %}
-      {{ m.vazio(6, "Nenhuma ordem de serviço cadastrada.") }}
+      {{ m.vazio(7, "Nenhuma ordem de serviço cadastrada.") }}
       {% endfor %}
     </tbody>
   </table>

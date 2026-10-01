@@ -27,8 +27,8 @@ Os formulários fazem `POST` para a própria URL da página.
 | `GET/POST /servicos/novo` | `servicos/form.html` | `servico = None` |
 | `GET/POST /servicos/<id>/editar` | `servicos/form.html` | `servico` |
 | `POST /servicos/<id>/excluir` | — | — |
-| `GET /ordens` | `ordens/lista.html` | `ordens`: lista com `id`, `cliente`, `veiculo`, `placa`, `mecanico`, `data_abertura` (date), `observacoes` — resultado do INNER JOIN |
-| `GET/POST /ordens/nova` | `ordens/form.html` | `clientes`, `veiculos`, `mecanicos`, `servicos` (opcional), `hoje` (`AAAA-MM-DD`) |
+| `GET /ordens` | `ordens/lista.html` | `ordens`: lista com `id`, `cliente`, `veiculo`, `placa`, `mecanico`, `servico`, `data_abertura` (date), `observacoes` — resultado do INNER JOIN |
+| `GET/POST /ordens/nova` | `ordens/form.html` | `clientes`, `veiculos`, `mecanicos`, `servicos`, `hoje` (`AAAA-MM-DD`) |
 | `GET /relatorios/mecanicos` | `relatorios/mecanicos.html` | `ranking`: lista com `nome`, `especialidade`, `total` — resultado do GROUP BY / COUNT |
 
 As listas podem ser dicionários (`cursor(dictionary=True)`) ou objetos com esses atributos.
@@ -41,7 +41,7 @@ As listas podem ser dicionários (`cursor(dictionary=True)`) ou objetos com esse
 | Veículo | `placa`, `marca`, `modelo`, `ano` |
 | Mecânico | `nome`, `especialidade` |
 | Serviço | `descricao`, `valor` |
-| Ordem de serviço | `cliente_id`, `veiculo_id`, `mecanico_id`, `data_abertura`, `observacoes`, `servicos` (vários — use `request.form.getlist("servicos")`) |
+| Ordem de serviço | `cliente_id`, `veiculo_id`, `mecanico_id`, `servico_id`, `data_abertura`, `observacoes` |
 
 ## Mensagens
 

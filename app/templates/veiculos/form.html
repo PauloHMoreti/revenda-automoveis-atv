@@ -10,7 +10,7 @@
   {{ m.campo("placa", "Placa", veiculo.placa if veiculo, attrs='maxlength="8" placeholder="ABC1D23"') }}
   {{ m.campo("marca", "Marca", veiculo.marca if veiculo) }}
   {{ m.campo("modelo", "Modelo", veiculo.modelo if veiculo) }}
-  {{ m.campo("ano", "Ano", veiculo.ano if veiculo, "number", attrs='min="1900" max="2100"') }}
+  {{ m.campo("ano", "Ano", veiculo.ano if veiculo, "number", attrs='min="1901" max="2155"') }}
   {{ m.botoes("/veiculos") }}
 </form>
 {% endblock %}

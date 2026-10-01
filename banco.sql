@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 -- Table `oficina`.`servicos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `oficina`.`servicos` (
-  `idServico` INT NOT NULL,
+  `idServico` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(300) NOT NULL,
   `valor` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`idServico`))
