@@ -1,4 +1,20 @@
 services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      # Scripts nesta pasta rodam automaticamente na primeira vez que o banco sobe
+      - ./banco.sql:/docker-entrypoint-initdb.d/banco.sql:ro
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
   web:
     build: .
     ports:
@@ -6,4 +22,10 @@ services:
     env_file:
       - .env
     environment:
-      MYSQL_HOST: host.docker.internal
+      MYSQL_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
