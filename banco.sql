@@ -58,7 +58,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `oficina`.`servicos` (
   `idServico` INT NOT NULL,
   `descricao` VARCHAR(300) NOT NULL,
-  `valor` DECIMAL(2,10) NOT NULL,
+  `valor` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`idServico`))
 ENGINE = InnoDB;
 
